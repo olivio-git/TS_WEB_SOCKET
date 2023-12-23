@@ -1,0 +1,28 @@
+---
+import Pannel from "../components/Pannel.astro";
+interface Props {
+  title: string;
+}
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <main class="clg  w-full h-screen bg-[#155263]">
+      <div class="flex justify-between">
+        <Pannel styl="w-full md:w-1/2 p-5" message={"hola mundo"} />
+        <Pannel styl="w-full md:w-1/2 p-5" message={"hola mundo 2"} />
+      </div>
+    </main>
+  </body>
+  <script src="./Layout"></script>
+</html>
