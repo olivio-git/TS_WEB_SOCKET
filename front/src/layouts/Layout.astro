@@ -1,11 +1,12 @@
 ---
+//DOCUMENTO DE ENTRADA
 import Pannel from "../components/Pannel.astro";
 interface Props {
   title: string;
+  hi:string
 }
-const { title } = Astro.props;
+const { title,hi } = Astro.props;
 ---
-
 <!doctype html>
 <html lang="en">
   <head>
@@ -19,8 +20,8 @@ const { title } = Astro.props;
   <body>
     <main class="clg  w-full h-screen bg-[#155263]">
       <div class="flex justify-between">
-        <Pannel styl="w-full md:w-1/2 p-5" message={"hola mundo"} />
-        <Pannel styl="w-full md:w-1/2 p-5" message={"hola mundo 2"} />
+        <Pannel styl="w-full flex items-center justify-center flex-col md:w-1/2 p-5" message={"hola mundo"} user={"Olivio"} />
+        <Pannel styl="w-full flex items-center justify-center flex-col md:w-1/2 p-5" message={"hola mundo 2"} user={"Pedro"}/>
       </div>
     </main>
   </body>
