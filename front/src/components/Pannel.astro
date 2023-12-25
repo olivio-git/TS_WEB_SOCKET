@@ -1,12 +1,18 @@
 ---
 interface Props {
   message: string;
-  styl:any
+  styl:any;
+  user:string
 }
 
-const { message,styl} = Astro.props;
+const { message,styl,user} = Astro.props;
 ---
 
 <div class={styl}>
+  <div class="flex justify-center items-center w-full h-24 bg-red-100">
     {message}
+  </div>
+  <div class="flex flex-col items-center w-full h-auto bg-yellow-100">
+    Message
+  </div>
 </div>
