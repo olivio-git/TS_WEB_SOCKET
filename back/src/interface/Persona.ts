@@ -1,3 +1,4 @@
-export interface Usuario{
-    nombre:string;
+export interface Persona{ 
+    user_name:string;
+    user_password:string;
 };

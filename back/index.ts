@@ -1,5 +1,10 @@
-import app from "./src/app";
+import { NextFunction, Request } from "express";
+import { server, io } from "./src/app";
+import { conn } from "./src/db";
+import ClientError from "./src/utils/error";
 
-app.listen(3001, () => {
-  console.log("server running at http://localhost:3001");
+conn.sync({ force: false }).then(() => {
+  server.listen(3001, () => {
+    console.log("server running at http://localhost:3001");
+  });
 });
