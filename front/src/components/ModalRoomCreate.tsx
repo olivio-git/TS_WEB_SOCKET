@@ -8,47 +8,55 @@ import toast from "react-hot-toast";
 import InputText from "./InputText";
 
 export default function ModalRoomCreate({
-    handleChangeRoom,
+  handleChangeRoom,
 }: HandleChangeRoom) {
   const [statePromise, setStatePromise] = useState(false);
   const [error, setError] = useState(null);
-  const [ room ,setRoom ] =useState<Room>({
-    room_name:""
-  })
+  const [room, setRoom] = useState<Room>({
+    room_name: "",
+  });
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRoom({
-        ...room,
-        room_name:e.target.value
-    })
+      ...room,
+      room_name: e.target.value,
+    });
   };
-  const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setStatePromise(true);
     try {
-        const response = await axios.post('http://localhost:3001/api/room/',room);
-        setStatePromise(false);
-        toast.success(response.data.data.MessageChannel); 
-        handleChangeRoom(false)
-    } catch (error:any) {
-        setStatePromise(false);
-        setError(error.response.data.message); 
+      const response = await axios.post(
+        "http://localhost:3001/api/room/",
+        room
+      );
+      setStatePromise(false);
+      toast.success(response.data.data.MessageChannel);
+      handleChangeRoom(false);
+    } catch (error: any) {
+      setStatePromise(false);
+      setError(error.response.data.message);
     }
-  }
+  };
   return (
     <>
       <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
         <div className="relative sm:w-auto md:w-auto lg:w-3/12 xl:w-3/12 my-6 mx-auto max-w-3xl">
-          {/*content*/}
-          <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-            {/*header*/}
+          <div className="border-0 rounded-2xl shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
             <div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
               <h3 className="text-3xl font-semibold">Crear sala</h3>
               <button
-                className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                className="rounded-full p-2 ml-auto bg-[#f70776] border-0 text-black float-right leading-none font-semibold outline-none focus:outline-none"
                 onClick={() => handleChangeRoom(false)}>
-                <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                  ×
-                </span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="white"
+                  viewBox="0 0 24 24"
+                  width="20"
+                  height="20">
+                  <g id="_01_align_center" data-name="01 align center">
+                    <polygon points="24 1.414 22.586 0 12 10.586 1.414 0 0 1.414 10.586 12 0 22.586 1.414 24 12 13.414 22.586 24 24 22.586 13.414 12 24 1.414" />
+                  </g>
+                </svg>
               </button>
             </div>
             {/*body*/}

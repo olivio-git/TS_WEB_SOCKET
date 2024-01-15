@@ -33,6 +33,7 @@ export const loginUserVerify = async (req: Request, res: Response) => {
   response(res, 200,{
     MessageChannel:'Inicio de secion exitoso!',
     user:{
+      id_user:findUser.id_usuario,
       user_name:findUser.user_name,
       image_profile_url:findUser.image_profile_url 
     }});

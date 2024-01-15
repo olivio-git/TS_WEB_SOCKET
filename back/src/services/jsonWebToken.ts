@@ -25,7 +25,7 @@ export const tokenValidity = async (next:NextFunction,token: string ) => {
      }
     const user:Persona = {user_name:decoded?.user_name,user_password:""};
     const findUser = await findUserName(user.user_name);
-    return { valid:true,user:{user_name:findUser.user_name,image_profile_url:findUser.image_profile_url}};
+    return { valid:true,user:{id_user:findUser.id_usuario,user_name:findUser.user_name,image_profile_url:findUser.image_profile_url}};
   } catch (error) {
     throw new ClientError("La secion a expirado!", 401);
   }

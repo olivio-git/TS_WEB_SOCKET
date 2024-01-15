@@ -12,54 +12,61 @@ export default function Pannel(props: Props) {
   //context
   const { rooms, handleUpdateRooms } = useContext(DataContext);
   const [modalRoom, setModalRoom] = useState(false);
-  const [showModal, setShowModal] = useState(false); 
-  
+  const [showModal, setShowModal] = useState(false);
+
   useEffect(() => {
     setShowModal(modalRoom);
-  }, [modalRoom]); 
-  useEffect(() => {  
-    console.log("first")
-    socket.on("roomUpdate", (message) => {
-      if (message) {
-        handleUpdateRooms(message.MessageChannel);
-      }
-    });
-    return () => {
-      socket.off("roomUpdate");
-    };
-  }, []);
+  }, [modalRoom]);
+
   return (
     <div className="flex flex-col items-center w-3/12 h-screen">
-      <header className="w-full bg-[#233142] h-24 p-4">
-        <h1 className="font-sans font-bold text-white">{props.user}</h1>
+      <header className="flex w-full bg-[#F5F6FA] h-24 p-4 items-center">
+        <section className="flex flex-row">
+          <div className="flex bg-[#8ef6e4] justify-center items-center w-12 h-flex-grow rounded-full text-2xl font-bold text-[#f70776]">
+            {props.user[0].toUpperCase()+props.user[1].toLocaleUpperCase()}
+          </div>
+          <div>
+            <h1 className="font-semibold text-gray-700 text-lg">
+              {props.user}
+            </h1>
+            <p className="text-gray-500 text-sm">@developer</p>
+          </div>
+        </section>
       </header>
-      <main className="w-full bg-[#ececec] flex-grow">
-        <section className="w-full flex flex-row justify-center items-center p-2 h-12 border-b-2 border-black text-center">
-          <p className="font-bold text-gray-500">Salas</p>
+      <main className="flex flex-col gap-2 w-full bg-[#F5F6FA] flex-grow p-4">
+        <section className="w-full flex flex-row justify-center items-center p-2 h-12 text-center">
           <button
             onClick={() => setModalRoom(true)}
-            className="h-8 w-8 rounded-full hover:bg-green-300">
-            <svg
-              fill="gray"
-              id="Layer_1"
-              height="30"
-              viewBox="0 0 24 24"
-              width="30"
-              xmlns="http://www.w3.org/2000/svg"
-              data-name="Layer 1">
-              <path d="m12 0a12 12 0 1 0 12 12 12.013 12.013 0 0 0 -12-12zm0 22a10 10 0 1 1 10-10 10.011 10.011 0 0 1 -10 10zm5-10a1 1 0 0 1 -1 1h-3v3a1 1 0 0 1 -2 0v-3h-3a1 1 0 0 1 0-2h3v-3a1 1 0 0 1 2 0v3h3a1 1 0 0 1 1 1z" />
-            </svg>
+            className="h-8 w-24 rounded-full hover:bg-green-200 hover:text-violet-400 bg-gray-200 text-blue-500 font-bold">
+            Crear sala
           </button>
         </section>
-        <section className="flex flex-col w-full flex-grow p-4 gap-2">
+        <section className="flex  flex-col w-full flex-grow rounded-s-[25px] rounded-e-[25px] bg-[#FFFFFF]">
+          <div className="flex items-center bg-[#F5F6FA] rounded-full px-2 m-2">
+            <input
+              type="text"
+              placeholder="Search"
+              className="flex-grow font-bold font-gray-200 outline-none h-12 bg-[#F5F6FA] rounded-full pl-4"
+            />
+            <button className="ml-2 pr-4">
+              <svg
+                fill="gray"
+                xmlns="http://www.w3.org/2000/svg"
+                id="Outline"
+                viewBox="0 0 24 24"
+                width="20"
+                height="20">
+                <path d="M23.707,22.293l-5.969-5.969a10.016,10.016,0,1,0-1.414,1.414l5.969,5.969a1,1,0,0,0,1.414-1.414ZM10,18a8,8,0,1,1,8-8A8.009,8.009,0,0,1,10,18Z" />
+              </svg>
+            </button>
+          </div>
           {rooms &&
             rooms.map((room, index) => {
               return (
                 <CardSala
                   key={room.id_room}
                   room_name={room.room_name}
-                  room={room}
-                  ></CardSala>
+                  room={room}></CardSala>
               );
             })}
         </section>

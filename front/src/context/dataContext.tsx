@@ -10,7 +10,7 @@ export const DataContext = createContext<DataContextType>({
   messages: [],
   userLogin: {
     token: "",
-    user: { user_name: "", image_profile_url: "" },
+    user: {id_user:"", user_name: "", image_profile_url: "" },
     valid: false,
   },
   handleSaveLogin: () => {},
@@ -25,14 +25,14 @@ export const DataContextProvider = ({ children }: any) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [userLogin, setUserLogin] = useState<UserLogged>({
     token: "",
-    user: { user_name: "", image_profile_url: "" },
+    user: {id_user:"", user_name: "", image_profile_url: "" },
     valid: false,
   });
   const [rooms, setRooms] = useState<RoomInterface[]>([]);
   const [selectedRoom,setSelectedRoom] = useState<RoomInterface>({createdAt: "",id_room: "",room_name: "",updatedAt: ""})
   //Stae
-  const handleSetMessages = (message: Message) => {
-    setMessages((prevMessages) => [...prevMessages, message]);
+  const handleSetMessages = (messages: Message) => {
+    setMessages((prevMessages) => [...prevMessages, messages]);
   };
   const handleSaveLogin = async (userProps: UserLogged) => {
     setUserLogin({
