@@ -35,7 +35,7 @@ export const BodyChat: React.FC<BodyChatProps> = ({
     let now = new Date().getTime();
     let dateSt = new Date(date).getTime();
     let seconds = Math.round((now - dateSt) / 1000);
-   
+
     if (seconds < 60) {
       return "hace unos segundos";
     } else if (seconds < 3600) {
@@ -45,14 +45,15 @@ export const BodyChat: React.FC<BodyChatProps> = ({
     } else {
       return "hace " + Math.floor(seconds / 86400) + " días";
     }
-   };
+  };
   useEffect(() => {}, []);
   return (
     <div className="w-full flex flex-col pt-4">
       <header className="w-full h-24 bg-[#F1F2F7] p-8 text-white rounded-s-[25px] rounded-e-[25px]">
         {selectedRoom.room_name}
       </header>
-      <main className="w-full flex flex-col p-8 flex-grow gap-2 bg-[#F5F6FA]
+      <main
+        className="w-full flex flex-col p-8 flex-grow gap-2 bg-[#F5F6FA]
        overflow-y-auto min-h-[calc(80vh-50px)] max-h-[calc(80vh-50px)]">
         {messages.map((message) => {
           return (
@@ -62,12 +63,24 @@ export const BodyChat: React.FC<BodyChatProps> = ({
                 message.userId == userLogin.user.id_user
                   ? "self-end"
                   : "self-start"
-              } max-w-96 p-2 bg-[#ffff] rounded-lg shadow hover:cursor-pointer mb-2`}>
-              <h5 className="text-sm text-gray-500">
-                {userLogin.user.id_user == message.userId
-                  ? "tú"
-                  : message.User.user_name}
-              </h5>
+              } max-w-96 p-2 bg-[#ffff] rounded-lg shadow hover:cursor-pointer mb-2 shadow-lg`}>
+              <section className="flex  justify-between w-full">
+                <h5 className="text-sm text-gray-500">
+                  {userLogin.user.id_user == message.userId
+                    ? "tú"
+                    : message.User.user_name}
+                </h5>
+                <button className="hover:bg-gray-200 hover:bg-opacity-50">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    id="Outline"
+                    viewBox="0 0 24 24"
+                    width="16"
+                    height="16">
+                    <path d="M18.71,8.21a1,1,0,0,0-1.42,0l-4.58,4.58a1,1,0,0,1-1.42,0L6.71,8.21a1,1,0,0,0-1.42,0,1,1,0,0,0,0,1.41l4.59,4.59a3,3,0,0,0,4.24,0l4.59-4.59A1,1,0,0,0,18.71,8.21Z" />
+                  </svg>
+                </button>
+              </section>
               <h5 className="text-xl font-bold tracking-tight text-gray-600">
                 {message.text_content}
               </h5>
@@ -79,7 +92,9 @@ export const BodyChat: React.FC<BodyChatProps> = ({
         })}
       </main>
       <footer className="flex items-center pl-8 pr-8">
-        <FormSubmit className="flex items-center p-2 rounded-s-[25px] rounded-e-[25px] flex-grow bg-red-200" onSubmit={handleSubmit}>
+        <FormSubmit
+          className="flex items-center p-2 rounded-s-[25px] rounded-e-[25px] flex-grow bg-[#ffff] shadow"
+          onSubmit={handleSubmit}>
           <input
             name="message"
             type="text"
