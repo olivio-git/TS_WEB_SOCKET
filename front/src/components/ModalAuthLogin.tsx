@@ -1,8 +1,9 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import {
   HandleChangeModalLogin,
   LoginInterface,
+  StateModal,
 } from "../interfaces/Interfaces";
 import InputText from "./InputText";
 import ButtonSend from "./Button";
@@ -11,22 +12,35 @@ import ButtonTrianglePromise from "./ButtonTrianglePromise";
 import ErrorComponent from "./ErrorComponent";
 import toast from "react-hot-toast";
 import DataContext from "../context/dataContext";
+import ModalAuthRegister from "./ModalAuthRegister";
 
 export default function ModalAuthLogin({
   handleChangeModalLogin,
 }: HandleChangeModalLogin) {
-  const { handleSaveLogin } =useContext(DataContext);
+  const { handleSaveLogin } = useContext(DataContext);
   const [user, setUser] = useState<LoginInterface>({
     user_name: "",
     user_password: "",
   });
+  const [showModal, setShowModal] = useState(false);
+
+  const [authRegisterOpen, setAuthRegisterOpen] = useState<StateModal>({
+    estado: false,
+  });
+  const handleChangeModalRegister = (estado: boolean) => {
+    //changeStateModalRegister
+    setAuthRegisterOpen({
+      ...authRegisterOpen,
+      estado: estado,
+    });
+  };
   const [error, setError] = useState(null);
   const [statePromise, setStatePromise] = useState(false);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const property = e.target.name;
     const value = e.target.value;
-    if(error!=null){
-        setError(null);
+    if (error != null) {
+      setError(null);
     }
     setUser({
       ...user,
@@ -42,7 +56,7 @@ export default function ModalAuthLogin({
         user,
         { withCredentials: true }
       );
-      setStatePromise(false); 
+      setStatePromise(false);
       handleSaveLogin(response.data.data.user);
       toast.success(response.data.data.MessageChannel);
       handleChangeModalLogin(false);
@@ -51,11 +65,19 @@ export default function ModalAuthLogin({
       setError(error.response.data.message);
     }
   };
+  useEffect(() => {
+    setShowModal(authRegisterOpen.estado);
+  }, [authRegisterOpen]);
   return (
     <>
       <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
         <div className="relative sm:w-auto md:w-auto lg:w-3/12 xl:w-3/12 my-6 mx-auto max-w-3xl">
-          {/*content*/}
+          {showModal ? (
+            <ModalAuthRegister
+              handleChangeModalRegister={
+                handleChangeModalRegister
+              }></ModalAuthRegister>
+          ) : null}
           <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
             {/*header*/}
             <div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
@@ -107,16 +129,24 @@ export default function ModalAuthLogin({
                   {statePromise ? (
                     <ButtonTrianglePromise></ButtonTrianglePromise>
                   ) : (
-                    <ButtonSend
-                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                      type="submit">
-                      Iniciar Sesión
-                    </ButtonSend>
+                    <>
+                      <ButtonSend
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                        type="submit">
+                        Iniciar Sesión
+                      </ButtonSend>
+                    </>
                   )}
                 </div>
               </form>
+              <ButtonSend
+              onClick={()=>handleChangeModalRegister(true)}
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                type="button">
+                Registrar
+              </ButtonSend>
               {error && (
-                <ErrorComponent strong="Error" span={error} ></ErrorComponent>
+                <ErrorComponent strong="Error" span={error}></ErrorComponent>
               )}
             </div>
             {/*footer*/}

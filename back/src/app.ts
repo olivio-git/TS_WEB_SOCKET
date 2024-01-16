@@ -7,9 +7,9 @@ import { NextFunction, Request, Response } from "express";
 import express from "express";
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
-const { createServer } = require("node:http");
+const { createServer } = require("node:http"); //vanilla nodejs
 const { join } = require("node:path");
-const { Server } = require("socket.io");
+const { Server } = require("socket.io"); //libreria
 const app = express();
 app.use(cors({
   origin: 'http://localhost:5173', // reemplaza esto con el origen de tu frontend
@@ -45,14 +45,17 @@ app.use((err: ClientError, _: Request, res: Response, __: NextFunction) => {
   });
 });
 const server = createServer(app);
-const io = new Server(server, {
+
+const io = new Server(server, { //servidor websocket.io
   cors: {
     origin: "*",
   },
 });
 
 io.on("connection", (socket: any) => {
-  socket.emit("validConnection", true);
+
+  socket.emit("validConnection", true); // BACK ----------------------------------> FRONTEND
+
   socket.on("message", (arg: Message) => {
     console.log(arg);
     socket.emit("message", arg);

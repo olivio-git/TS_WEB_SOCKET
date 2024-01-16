@@ -22,7 +22,7 @@ export const getUserControllerSession = async (req: Request, res: Response) => {
 export const postUserController = async (req: Request, res: Response) => {
   const usuario: Usuario = req.body;
   const result = await capModels.User.create(usuario);
-  response(res, 200, result);
+  response(res, 200, {MessageChannel:'Registro exitoso!',result});
 };
 export const loginUserVerify = async (req: Request, res: Response) => {
   const user: Persona = req.body; 

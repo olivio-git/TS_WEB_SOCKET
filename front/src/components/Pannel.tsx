@@ -17,7 +17,7 @@ export default function Pannel(props: Props) {
   useEffect(() => {
     setShowModal(modalRoom);
   }, [modalRoom]);
-
+  
   return (
     <div className="flex flex-col items-center w-3/12 h-screen">
       <header className="flex w-full bg-[#F5F6FA] h-24 p-4 items-center">
@@ -37,7 +37,7 @@ export default function Pannel(props: Props) {
         <section className="w-full flex flex-row justify-center items-center p-2 h-12 text-center">
           <button
             onClick={() => setModalRoom(true)}
-            className="h-8 w-24 rounded-full hover:bg-green-200 hover:text-violet-400 bg-gray-200 text-blue-500 font-bold">
+            className="h-8 w-24 rounded-full hover:bg-blue-400 hover:text-white bg-blue-500 text-gray-200 font-bold">
             Crear sala
           </button>
         </section>

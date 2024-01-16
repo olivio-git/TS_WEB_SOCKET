@@ -19,6 +19,7 @@ export const messageSend = async (req: Request, res: Response) => {
     userId: id_usuario,
     roomId: id_room,
   }); 
+  //awdadwad123123123
   await emitEventMessageCreated(id_room); //Emitir evento para actualizar las salas de chat
   response(res, 200, result);
 };

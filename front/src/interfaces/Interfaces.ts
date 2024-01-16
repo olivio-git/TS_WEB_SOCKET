@@ -43,6 +43,9 @@ export interface DataContextType {
 export interface HandleChangeModalLogin {
   handleChangeModalLogin: (estado: boolean) => void;
 }
+export interface HandleChangeRegister{
+  handleChangeModalRegister: (estado: boolean) => void;
+}
 export interface HandleChangeRoom {
   handleChangeRoom: (estado: boolean) => void;
 }
