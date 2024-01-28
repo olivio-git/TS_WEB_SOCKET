@@ -11,5 +11,10 @@ export default defineConfig({
         ws:true
       }
     }
+  },
+  resolve:{
+    alias:{
+      "simple-peer": "simple-peer/simplepeer.min.js",
+    }
   }
 })
